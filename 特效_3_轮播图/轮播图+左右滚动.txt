@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="js/jquery.js"></script>
+  <style>
+  *
+  {
+    margin:0 auto;
+    padding:0px;
+  }
+  img{border:0;}
+  #wrapper
+  {
+    width:800px;
+    height:280px;
+    margin-top: 50px;
+    overflow: hidden;
+    position: relative;
+  }
+  #wrapper ul 
+  {
+    list-style: none;
+    position: absolute;
+  }
+  #wrapper ul li{
+    float:left;
+  }
+  #btnbg{
+    width:800px;
+    height:20px;
+    background: #000;
+    position:absolute;
+    bottom:0px;
+    color:#fff;
+  }
+  #btnbg span
+  {
+    display:inline-block;
+    width:25px;
+    height:10px;
+    background:#fff;
+    text-align: right;
+    line-height: 20px;
+  }
+  #bt{
+    position: absolute;
+    right:10px;
+    cursor: pointer;
+  }
+  #prev{
+    position: absolute;
+    left:0px;
+    top:90px;
+    width:45px;
+    height:100px;
+    background:url(images/sprite.bmp) no-repeat 0 0;
+    cursor: pointer;
+  }
+  #next
+  {
+    position: absolute;
+    right:0px;
+    top:90px;
+    width:45px;
+    height:100px;
+    background:url(images/sprite.bmp) -55px;
+    cursor:pointer;
+  }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <ul>
+      <li><a href="#"><img src="images/01.jpg" alt=""></a></li>
+      <li><a href="#"><img src="images/02.jpg" alt=""></a></li>
+      <li><a href="#"><img src="images/03.jpg" alt=""></a></li>
+      <li><a href="#"><img src="images/04.jpg" alt=""></a></li>
+    </ul>
+    <div id="btnbg">
+      <div id="bt">
+      <span id="ff"></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      </div>
+    </div>
+    <div id="prev"></div>
+    <div id="next"></div>
+  </div>
+<script>
+  
+  $("#btnbg").css("opacity",0.5);
+  $("#btnbg span").css("opacity",0.4);
+  $("#prev").css("opacity",0.4);
+  $("#next").css("opacity",0.4);
+
+  var wid=$("#wrapper ul li").width();
+  var len=$("#wrapper ul li").length;
+  $("#btnbg span").css("opacity",0.4).mouseover(
+    function()
+    {
+      index=$("#btnbg span").index(this);
+      choose(index);
+    }
+    );
+  function choose(ind)
+  {
+       $("#wrapper ul ").stop(true,false).animate({"left":-wid*ind},300);
+      $("#btnbg  span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); 
+  }
+  $("#prev").css("opacity",0.4).click(
+  function()
+  {
+    index--;
+    if(index<0)
+    {
+      index=3;
+    }
+    choose(index);
+
+  }
+    );
+  $("#next").css("opacity",0.4).click(
+  function()
+  {
+    index++;
+    if(index>3)
+    {
+      index=0;
+    }
+    choose(index);
+
+  }
+    );
+    $(" #next").hover(function() {
+    $(this).stop(true,false).animate({"opacity":"0.5"},300);
+  },function() {
+    $(this).stop(true,false).animate({"opacity":"0.2"},300);
+  });
+       $(" #prev").hover(function() {
+    $(this).stop(true,false).animate({"opacity":"0.5"},300);
+  },function() {
+    $(this).stop(true,false).animate({"opacity":"0.2"},300);
+  });
+  
+</script>
+</body>
+</html>

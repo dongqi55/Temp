@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>图片频道——新闻中心——腾讯网</title>
+  <style>
+  *
+  {
+    margin: 0px auto;
+    padding:0px;
+  }
+  ul
+  {
+    list-style: none;
+  }
+  ul li img{
+    width:75px;
+    height:50px;
+  }
+  #content img
+  {
+    width:1000px;
+    height:550px;
+  }
+  #contenter
+  {
+    width:1000px;
+    height:550px;
+    margin:50px auto; 
+  
+    position: relative;
+    
+  }
+  #mask li
+  {
+    float:left;
+    margin-right: 6px;
+
+  }
+ 
+  #mask
+  {
+    position: absolute;
+    right:50px;
+    bottom:20px;  
+  }
+
+ #content img{
+  display:none;
+ }
+  #title li{
+    float:left;
+  }
+ #content .selected
+  {
+    display:block;
+  }
+  #mask .selected
+  {
+    border:4px solid #fff;
+    position:relative;
+    margin:-4px;
+  }
+   
+  #title
+  {
+    position: absolute;
+    left:20px;
+    bottom:35px;
+  }
+  #title li a{
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+   
+    font-family: "微软雅黑", "黑体", Arial, sans-serif;
+      }
+  #title .selected
+  {
+    display:block;
+  }
+  #bottom
+  {
+    position: relative;
+    background: red;
+  }
+  #prev
+  {
+    position: absolute;
+    float: left;
+    width:29px;
+    height:42px;
+    left:330px;
+    bottom:33px;
+    background:url(images/bntIcon.png) -79px -375px;
+    cursor: pointer;
+  }
+    #next
+  {
+    position: absolute;
+    float: left;
+    width:29px;
+    height:42px;
+    right:8px;
+    bottom:33px;
+    background:url(images/bntIcon.png) -108px -375px;
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <div id="contenter">
+ 
+  <div id="content">
+    <a href="#"><img src="images/118897639.jpg" alt="" class="selected"></a>
+    <a href="#"><img src="images/118886117.jpg" alt=""></a>
+    <a href="#"><img src="images/118888995.jpg" alt=""></a>
+    <a href="#"><img src="images/118882474.jpg" alt=""></a>
+    <a href="#"><img src="images/118885183.jpg" alt=""></a>
+    <a href="#"><img src="images/118884735.jpg" alt=""></a>
+    <a href="#"><img src="images/118884709.jpg" alt=""></a>
+  </div>
+  
+  <div id="bottom">
+   <ul id="title">
+      <li ><a href="#" class="selected" class="selected">珠穆朗玛峰因地震发生雪崩</a></li>
+      <li><a href="#">广东打工仔二胎添“三宝” 愁坏一家</a></li>
+      <li><a href="#">尼泊尔8.1级地震 加德满都多处房屋倒塌</a></li>
+      <li><a href="#">广西合浦大片红树林遭采矿毁坏</a></li>
+      <li><a href="#">图话：农村大舞台上流行什么</a></li>
+      <li><a href="#">一周图片精选：请大家吃素食</a></li>
+      <li><a href="#">传承经典历久弥新 激情PK永不褪色</a></li>
+  </ul>
+  <ul id="mask">
+    <li><a href="#"><img src="images/118897639.jpg" alt="" class="selected" ></a></li>
+     <li><a href="#"><img src="images/118886117.jpg" alt=""></a></li>
+     <li><a href="#"><img src="images/118888995.jpg" alt=""></a></li>
+    <li><a href="#"><img src="images/118882474.jpg" alt=""></a></li>
+     <li><a href="#"><img src="images/118885183.jpg" alt=""></a></li>
+     <li><a href="#"><img src="images/118884735.jpg" alt=""></a></li>
+     <li><a href="#"><img src="images/118884709.jpg" alt=""></a></li>
+  </ul>
+  <div>
+    <span id="prev"></span>
+    <span id="next"></span>
+  </div>
+</div> 
+</div>
+<script>
+var aImgsmall=document.getElementById("mask").getElementsByTagName("img");
+var oCon=document.getElementById("content");
+ var aImgbig=oCon.getElementsByTagName("img");
+ var pre=document.getElementById("prev");
+ var nex=document.getElementById("next");
+ var tit=document.getElementById("title");
+ var aA=tit.getElementsByTagName("a");
+ var index=0;
+for(var i=0;i<aImgsmall.length;i++)
+{
+  aImgsmall[i].index=i;
+
+  aImgsmall[i].onmouseover=function()
+  {
+    index=this.index;
+    clearInterval(timer);
+
+    choose(this.index);
+  };
+}
+function choose(num)
+{
+   var curImg = document.getElementsByClassName("selected");
+    fadeOut(curImg);
+  //淡出当前 image
+ for(var i=0;i<aImgsmall.length;i++)
+  {
+    aImgsmall[i].className="";
+    aImgbig[i].className="";
+    aA[i].className="";
+  }
+  aImgsmall[num].className="selected";
+  aImgbig[num].className="selected";
+  aA[num].className="selected";
+  fadeIn(aImgbig[num]); //淡入目标 image
+}
+pre.onclick=function()
+{
+  index--;
+  if(index<=0)
+  {
+    index=aImgsmall.length-1;
+  }
+  choose(index);
+}
+nex.onclick=function()
+{
+  index++;
+  if(index>=aImgsmall.length)
+  {
+    index=0;
+  }
+  choose(index);
+}
+var timer=setInterval("nex.onclick()","2000");
+oCon.onmouseover=function()
+{
+  clearInterval(timer);
+}
+oCon.onmouseout=function()
+{
+  timer=setInterval("nex.onclick()","2000");  
+}
+
+ function setOpacity(elem,level){ 
+    if(elem.filters){ 
+      elem.style.filter = "alpha(opacity="+level+")";//设置透明层次
+    }else{ 
+      elem.style.opacity = level / 100;
+    }
+  }
+
+ function fadeIn(elem){ 
+    setOpacity(elem,0); //初始全透明
+    for(var i = 0;i<=20;i++)
+    { //透明度改变 20 * 5 = 100
+      (function(){ 
+        var level = i * 5;  //透明度每次变化值
+        setTimeout(function(){ 
+          setOpacity(elem, level)
+        },i*25); //i * 25 即为每次改变透明度的时间间隔，自行设定
+      })(i);     //每次循环变化一次
+    }
+  }
+  //淡入原理  先将要淡入的对象 设置全透明  然后调用二十次连续改变 并且有时间间隔透明度函数  其中改变透明度函数  由全透明变为透明度为100%
+
+    //淡出处理函数   让透明度最终变为0
+  function fadeOut(elem){ 
+    for(var i = 0;i<=20;i++){ //透明度改变 20 * 5 = 100
+      (function(){ 
+        var level = 100 - i * 5; //透明度每次变化值
+        setTimeout(function(){ 
+          setOpacity(elem, level)
+        },i*25); //i * 25 即为每次改变透明度的时间间隔，自行设定
+      })(i);     //每次循环变化一次
+    }
+  }
+
+
+
+  
+</script>
+
+</body>
+</html>

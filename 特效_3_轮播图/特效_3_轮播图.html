@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>特效3---轮播图</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			width: 680px;
+			height: 344px;
+			margin: 50px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		#tab{
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		#tab li{
+			width: 20px;
+			height: 20px;
+			background-color: #000;
+			color: #fff;
+			float: left;
+			margin-right: 10px;
+			text-align: center;
+			line-height: 20px;
+			cursor: pointer;
+		}
+		#content img{
+			display: none;
+		}
+		#content .selected{
+			display: block;
+		}
+		#tab .selected{
+			background-color: orange;
+		}
+		#arrow{
+			position: absolute;
+			left: 10px;
+			bottom: 10px;
+		}
+		#arrow span{
+			float: left;
+			width: 20px;
+			height: 20px;
+			background-color: #000;
+			color: #fff;
+			text-align: center;
+			line-height: 20px;
+			margin-right: 10px;
+			cursor: pointer;
+		} 
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="tab">
+			<li class="selected">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div id="content">
+			<img src="img/1.jpg" class="selected">
+			<img src="img/2.jpg">
+			<img src="img/3.jpg">
+			<img src="img/4.jpg">
+		</div>
+		<div id="arrow">
+			<span id="prev">&lt;</span>
+			<span id="next">&gt;</span>
+		</div>
+	</div>
+	<script>
+		var oTab = document.getElementById('tab');
+		var aLi = oTab.getElementsByTagName('li');
+		var oContent = document.getElementById('content');
+		var aImg = oContent.getElementsByTagName('img');
+		var oPrev = document.getElementById('prev');
+		var oNext = document.getElementById('next');
+		var oContainer = document.getElementById('container');
+		var index = 0;
+		for(var i=0; i<aLi.length; i++){
+			aLi[i].index = i;
+			aLi[i].onclick = function(){
+				index = this.index;
+				switchImg( this.index );//直接调用封装的函数。参数要写this，否则出现闭包
+			};
+		}
+
+		//因为要重复使用这段代码，所以需要将事件里的代码封装成一个函数
+		function switchImg(idx){
+			for(var i=0; i<aLi.length; i++){
+					aLi[i].className = "";
+					aImg[i].className = "";
+				}
+				aLi[idx].className = "selected";
+				aImg[idx].className = "selected";
+		}
+		oNext.onclick = function(){
+			index++;
+			if(index > aLi.length-1){
+				index = 0;
+			}
+			switchImg( index );
+		};
+		oPrev.onclick = function(){
+			index--;
+			if(index < 0){
+				index = aLi.length-1;
+			}
+			switchImg( index );
+		};
+		var timer = setInterval(function(){//将定时器赋值给一个变量，是为了后面方便清除和重新赋值
+			oNext.onclick();
+		}, 1400);
+		oContainer.onmouseover = function(){
+			clearInterval(timer);
+		};
+		oContainer.onmouseout = function(){
+			timer = setInterval(function(){//此处虽然两个定时器相同，但必须在清除后重新给原来的赋值，两次的定时器必须是一个，所以此时的定时器前面不能加var，而是去修改原来全局的timer
+				oNext.onclick();
+			}, 1400);
+		};
+	</script>
+</body>
+</html>
