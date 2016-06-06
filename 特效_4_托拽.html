@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>特效4---托拽</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#div1{
+			width: 200px;
+			height: 200px;
+			background-color: #aaa;
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+	</style>
+</head>
+<body>
+	hahahhahahahahahhahahahha
+	<div id="div1"></div>
+	<script>
+		var oDiv = document.getElementById('div1');
+		oDiv.onmousedown = function(e){//e代表事件，event是关键字，此处用e代替，传过来一个事件
+			e = e || window.event;//兼容ie8及之前的浏览器
+			var iDisX = e.clientX - oDiv.offsetLeft;//获取鼠标距离title左边的距离
+			var iDisY = e.clientY - oDiv.offsetTop;
+			document.onmousemove = function(e){//要给document注册onmousemove事件，因为是在document上移动鼠标，如果给oTitle注册事件的话会出现鼠标移动太快会划出title的情况
+				e = e || window.event;
+				oDiv.style.left = e.clientX - iDisX + 'px';
+				oDiv.style.top = e.clientY - iDisY + 'px';
+
+				if(e.preventDefault){//取消浏览器默认行为，不然在拖拽的时候会选中后面网页上的文字
+					e.preventDefault();
+				}else{
+					e.returnValue = false;
+				}
+			};
+			oDiv.onmouseup = function(){//在鼠标按下事件上注册鼠标松开事件是因为如果在外面注册事件的话就相当于，只要我在oDiv上面松开鼠标就会触发该事件，这便会发生错误。
+				document.onmousemove = null;//将鼠标的托拽事件设置为null，则在鼠标松开的时候不会发生粘连现象
+			};
+		};
+	</script>
+</body>
+</html>
+<!-- oDiv事件源，大函数是事件处理函数，e是事件 -->
