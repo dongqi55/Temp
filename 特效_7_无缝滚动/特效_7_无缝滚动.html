@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>特效7---无缝滚动</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#container{
+			width: 500px;
+			height: 260px;
+			border: 1px solid #000;
+			margin: 50px auto;
+			overflow: hidden;
+			position: relative;/*每动一下都是定位，所以要把容器相对定位*/
+		}
+		/*不给固定宽度，定位之后宽度自然靠内容撑开*/
+		#img-list{
+			list-style: none;
+			height: 150px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#img-list li{
+			width: 150px;
+			height: 150px;
+			float: left;
+			padding-right: 20px;/*加内边距计算定位距离是比较方便*/
+		}
+		li img{
+			width: 100%;
+			height: 100%;
+		}
+		#btns{
+			height: 50px;
+			position: absolute;
+			left: 50%;
+			top: 160px;
+			margin-left: -105px;
+		}
+		#left,#right{
+			width: 100px;
+			height: 50px;
+			float: left;
+			margin-right: 10px;
+			background-color: #000;
+			color: #fff;
+			text-align: center;
+			line-height: 50px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="img-list">
+			<li><img src="img/1.jpg"></li>
+			<li><img src="img/2.jpg"></li>
+			<li><img src="img/3.jpg"></li>
+			<li><img src="img/4.jpg"></li>
+		</ul>
+		<div id="btns">
+			<span id="left">&lt;&lt;向左</span>
+			<span id="right" style="margin-right:0;">向右&gt;&gt;</span>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var oUl = document.getElementById('img-list');
+		var oRight = document.getElementById('right');
+		var oLeft = document.getElementById('left');
+		var aLi = document.getElementsByTagName('li');
+		var iSpeed = -2;//定位时每次减值
+		oUl.innerHTML += oUl.innerHTML;//复制一份dom结构（*正常dom结构可只复制一个li）
+		oUl.style.width = aLi.length*aLi[0].offsetWidth + 'px';//aLi数组的长度乘上每一个li的宽度即为容器的宽度值
+		setInterval(function(){
+			
+			if(oUl.offsetLeft <= -oUl.offsetWidth/2){//向左走时，走出去一半时，即正好是第二份dom结构开始往左走的时候，瞬间将第一份dom结构拉回开始的位置，刚好left值为0
+				oUl.style.left = 0;
+			}
+			if(oUl.offsetLeft > 0){//向右走时，第一份dom结构向右走时，立即把第二份dom结构拉到开始位置，left值刚好为负宽度一般
+				oUl.style.left = -oUl.offsetWidth/2 + 'px';
+			}
+			oUl.style.left = oUl.offsetLeft + iSpeed + 'px';//其他情况继续走就可以，每次根据相应iSpeed值定位
+			
+		},25);
+
+		oLeft.onmouseover = function(){//向左时每次定位left值要减
+			iSpeed = -2;
+		};
+		oRight.onmouseover = function(){//向右时每次定位left值要加
+			iSpeed = 2;
+		};
+	</script>
+</body>
+</html>
