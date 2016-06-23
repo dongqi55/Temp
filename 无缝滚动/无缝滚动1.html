@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+
+		}
+		#container{
+			width: 400px;
+			height: 200px;
+			margin: 50px auto;
+			border: 1px solid #000;
+			overflow: hidden;
+			position: relative;
+			background: pink;
+		}
+		#imgs{
+			position: absolute;
+			width: 520px;
+		}
+		#imgs li{
+			width: 120px;
+			background: pink;
+			color: #fff;
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+		
+			margin-top: 20px;
+			float: left;
+			margin-right: 10px;
+
+		}
+		#arrows{
+			position: absolute;
+			left: 50%;
+			margin-left: -85px;
+			width: 180px;
+			bottom: 20px;
+		}
+		#arrows span{
+			width: 80px;
+			height: 30px;
+			background: #fff;
+			color: #000;
+			float: left;
+			text-align: center;
+			line-height: 30px;
+			margin-right: 10px;
+			
+
+		}
+		#imgs img{
+			width: 75px;
+			height: 100px;
+		}
+	</style>
+</head>
+<boby>
+	<div id="container">
+		<ul id="imgs">
+			<li><img src="img/1.jpg"></li>
+			<li><img src="img/2.jpg"></li>
+			<li><img src="img/3.jpg"></li>
+			<li><img src="img/4.jpg"></li>
+		</ul>
+		<div id="arrows">
+			<span id="left">&lt;&lt;向左</span>
+			<span id="right"  style="margin-right: 0;">向右&gt;&gt;</span>
+		</div>
+	</div>	
+	<script>
+		//复制图片
+
+		var oImgs=document.getElementById('imgs');
+		var oLeft=document.getElementById('left');
+		var oRight=document.getElementById('right');
+		var speed = -2;
+
+		
+		oImgs.innerHTML += oImgs.innerHTML;
+		var aLi=oImgs.getElementsByTagName('li');
+		oImgs.style.width = (aLi[0].offsetWidth + 10) * aLi.length + 'px';
+
+
+		setInterval(function(){
+			oImgs.style.left = oImgs.offsetLeft +speed+ 'px';
+			if(oImgs.offsetLeft <= -oImgs.offsetWidth/2){
+				oImgs.style.left = 0;
+			}
+			if(oImgs.offsetLeft >0){
+				oImgs.style.left = -oImgs.offsetWidth/2 + 'px';
+			}
+		},30);
+		oLeft.onmouseover = function(){
+			speed = -2;
+		};
+		oRight.onmouseover = function(){
+			speed = 2;
+		};
+
+	</script>
+</boby>
+</html>
