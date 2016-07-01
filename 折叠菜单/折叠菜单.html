@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>dom_2---折叠菜单</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#menu{
+			width: 300px;
+			border: 1px solid #000;
+			margin: 100px auto;
+			text-align: center;
+		}
+		#menu h2{
+			background-color: #000;
+			color: #fff;
+			cursor: pointer;
+		}
+		#menu ul{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<ul id="menu">
+		<li>
+			<h2>外套区</h2><ul>
+				<li>棒球服</li>
+				<li>小香风外衣</li>
+				<li>长款外套</li>
+			</ul>
+		</li>
+		<li>
+			<h2>裤子区</h2><ul>
+				<li>牛仔裤</li>
+				<li>休闲裤</li>
+				<li>小脚裤</li>
+			</ul>
+		</li>
+	</ul>
+	<script src="jquery-1.12.3.min.js"></script>
+	<script>
+		$(function(){
+			$('#menu h2').on('click',function(){
+				$(this).next().toggle();
+			});
+		});
+	</script>
+</body>
+</html>
