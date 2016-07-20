@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旋转的照片墙</title>
+	<style>
+		body{
+			background-color: #eee;
+		}
+		.pic{
+			width: 150px;
+			background-color: #fff;
+			padding: 10px;
+			border: 1px solid #ccc;
+			-webkit-box-shadow: 2px 2px 1px rgba(50, 50, 50, .4);
+			position: absolute;
+			-webkit-transition: all 1s ease;
+		}
+		.container img:nth-child(1){
+			top: 60px;
+			left: 200px;
+			-webkit-transform: rotate(-20deg);
+			transform: rotate(-20deg);
+		}
+		.container img:nth-child(2){
+			top: 60px;
+			left: 306px;
+			-webkit-transform: rotate(-10deg);
+			transform: rotate(-10deg);
+		}
+		.container img:nth-child(3){
+			top: 60px;
+			left: 480px;
+			-webkit-transform: rotate(15deg);
+			transform: rotate(15deg);
+		}
+		.container img:nth-child(4){
+			top: 60px;
+			left: 640px;
+			-webkit-transform: rotate(30deg);
+			transform: rotate(30deg);
+		}
+		.container img:nth-child(5){
+			top: 60px;
+			left: 779px;
+			-webkit-transform: rotate(10deg);
+			transform: rotate(10deg);
+		}
+		.container img:nth-child(6){
+			top: 60px;
+			left: 980px;
+			-webkit-transform: rotate(-30deg);
+			transform: rotate(-30deg);
+		}
+		.container img:hover{
+			-webkit-transform: rotate(0deg);
+			transform: rotate(0deg);
+			-webkit-transform: scale(1.2);
+			transform: scale(1.2);
+			-webkit-box-shadow: 6px 6px 6px rgba(0,0,0,.7);
+			box-shadow: 6px 6px 2px rgba(0,0,0,.7);
+			z-index: 2;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img class="pic" src="img/1.jpg" alt="">
+		<img class="pic" src="img/2.jpg" alt="">
+		<img class="pic" src="img/3.jpg" alt="">
+		<img class="pic" src="img/5.jpg" alt="">
+		<img class="pic" src="img/7.jpg" alt="">
+		<img class="pic" src="img/9.jpg" alt="">
+	</div>
+</body>
+</html>
